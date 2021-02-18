@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,11 +8,20 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class TableController implements Initializable {
 	/**
@@ -33,6 +43,25 @@ public class TableController implements Initializable {
 	private TableColumn<PlayerTable, String> col_jersey;
 	@FXML
 	private TableColumn<PlayerTable, String> col_teamID;
+	
+	@FXML
+	private Pane addEntryPane;
+	@FXML
+	private Button openAddEntryButton;
+	@FXML
+	private Button entryCreateButton;
+	@FXML
+	private TextArea addEntryID;
+	@FXML
+	private TextArea addEntryFirstName;
+	@FXML
+	private TextArea addEntryLastName;
+	@FXML
+	private TextArea addEntryPosition;
+	@FXML
+	private TextArea addEntryJerseyNumber;
+	@FXML
+	private TextArea addEntryTeamID;
 
 	ObservableList<PlayerTable> list = FXCollections.observableArrayList();
 
@@ -59,7 +88,12 @@ public class TableController implements Initializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
+		setTableData();
+	}
+	
+	public void setTableData()
+	{
 		col_playerID.setCellValueFactory(new PropertyValueFactory<>("playerID"));
 		col_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 		col_lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -68,6 +102,24 @@ public class TableController implements Initializable {
 		col_teamID.setCellValueFactory(new PropertyValueFactory<>("teamID"));
 
 		table.setItems(list);
-
+	}
+	
+	//Opens and closes add entry fields
+	public void openEntryAddField() throws IOException {
+		if(addEntryPane.isVisible()) addEntryPane.setVisible(false);
+		else addEntryPane.setVisible(true);
+	}
+	
+	//Creates entry on fxml table
+	public void entryCreate()
+	{
+		if(addEntryID.getText() != "" && addEntryFirstName.getText() != "" && addEntryLastName.getText() != "" && addEntryPosition.getText() != "" && addEntryJerseyNumber.getText() != "" && addEntryTeamID.getText() != "")
+		{
+			list.add(new PlayerTable(addEntryID.getText(), addEntryFirstName.getText(), addEntryLastName.getText(),
+				addEntryPosition.getText(), addEntryJerseyNumber.getText(), addEntryTeamID.getText()));
+			setTableData();
+			//TODO add entry to database
+		}
+		
 	}
 }

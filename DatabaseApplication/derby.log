@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Sun Feb 14 00:12:59 MST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.3 - (1557168): instance a816c00e-0177-9f62-a8b7-00001e9a0080 
-on database directory C:\Users\amora\git\DatabaseApplication\DatabaseApplication\DatabaseApplication with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7f63425a 
-Loaded from file:/C:/Users/amora/git/DatabaseApplication/DatabaseApplication/resources/derby.jar
+Thu Feb 18 13:56:23 MST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.3 - (1557168): instance a816c00e-0177-b6ed-f083-00000a89af80 
+on database directory C:\Users\bacon\OneDrive\Pictures\Camera Roll\Documents\CSIS 2410\DatabaseApplication\DatabaseApplication\DatabaseApplication\DatabaseApplication with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@b4c966a 
+Loaded from file:/C:/Users/bacon/OneDrive/Pictures/Camera%20Roll/Documents/CSIS%202410/DatabaseApplication/DatabaseApplication/DatabaseApplication/resources/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=15.0.1+9-18
-user.dir=C:\Users\amora\git\DatabaseApplication\DatabaseApplication
+java.runtime.version=15+36-1562
+user.dir=C:\Users\bacon\OneDrive\Pictures\Camera Roll\Documents\CSIS 2410\DatabaseApplication\DatabaseApplication\DatabaseApplication
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

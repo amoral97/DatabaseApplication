@@ -70,5 +70,5 @@ public class PlayerTable {
 	public void setTeamID(String teamID) {
 		TeamID = teamID;
 	}
-
+	
 }

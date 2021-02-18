@@ -29,4 +29,10 @@ public class SqlPlayer {
 	public static String allData() {
 		return "SELECT * FROM Player";
 	}
+	
+	public static String addEntry() {
+		return "INSERT INTO Player "
+				+ "(FirstName, LastName, Position, JerseyNumber, TeamID)"
+				+ "VALUES ('John', 'Maxwell', 'Point Guard', 14, 0)";
+	}
 }
