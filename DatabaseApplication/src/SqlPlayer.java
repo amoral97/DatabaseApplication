@@ -30,9 +30,9 @@ public class SqlPlayer {
 		return "SELECT * FROM Player";
 	}
 	
-	public static String addEntry() {
+	public static String addEntry(String firstName, String lastName, String position, String jerseyNumber, String teamID) {
 		return "INSERT INTO Player "
 				+ "(FirstName, LastName, Position, JerseyNumber, TeamID)"
-				+ "VALUES ('John', 'Maxwell', 'Point Guard', 14, 0)";
+				+ "VALUES ('" + firstName + "', '" + firstName + "', '" + firstName + "', " + jerseyNumber + ", " + teamID + " )";
 	}
 }

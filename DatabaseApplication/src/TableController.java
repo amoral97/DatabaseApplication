@@ -45,13 +45,7 @@ public class TableController implements Initializable {
 	private TableColumn<PlayerTable, String> col_teamID;
 	
 	@FXML
-	private Pane addEntryPane;
-	@FXML
-	private Button openAddEntryButton;
-	@FXML
 	private Button entryCreateButton;
-	@FXML
-	private TextArea addEntryID;
 	@FXML
 	private TextArea addEntryFirstName;
 	@FXML
@@ -104,22 +98,33 @@ public class TableController implements Initializable {
 		table.setItems(list);
 	}
 	
-	//Opens and closes add entry fields
-	public void openEntryAddField() throws IOException {
-		if(addEntryPane.isVisible()) addEntryPane.setVisible(false);
-		else addEntryPane.setVisible(true);
-	}
-	
 	//Creates entry on fxml table
 	public void entryCreate()
 	{
-		if(addEntryID.getText() != "" && addEntryFirstName.getText() != "" && addEntryLastName.getText() != "" && addEntryPosition.getText() != "" && addEntryJerseyNumber.getText() != "" && addEntryTeamID.getText() != "")
+		if(addEntryFirstName.getText() != "" && addEntryLastName.getText() != "" && addEntryPosition.getText() != "" && addEntryJerseyNumber.getText() != "" && addEntryTeamID.getText() != "")
 		{
-			list.add(new PlayerTable(addEntryID.getText(), addEntryFirstName.getText(), addEntryLastName.getText(),
-				addEntryPosition.getText(), addEntryJerseyNumber.getText(), addEntryTeamID.getText()));
-			setTableData();
-			//TODO add entry to database
+			//Adds entry to database
+			try (Connection connect = DBConnector.getConnection(); Statement statement = connect.createStatement()) {
+
+				statement.execute(SqlPlayer.addEntry(addEntryFirstName.getText(), addEntryLastName.getText(),
+						addEntryPosition.getText(), addEntryJerseyNumber.getText(), addEntryTeamID.getText()));
+				ResultSet rs = statement.executeQuery(SqlPlayer.allData());
+
+				//clears list and reassigns the values to be displayed
+				list.clear();
+				while (rs.next()) {
+					list.add(new PlayerTable(rs.getString("ID"), rs.getString("FirstName"), rs.getString("LastName"),
+							rs.getString("Position"), rs.getString("JerseyNumber"), rs.getString("TeamID")));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			addEntryFirstName.clear(); 
+			addEntryLastName.clear();
+			addEntryPosition.clear();
+			addEntryJerseyNumber.clear();
+			addEntryTeamID.clear();
 		}
-		
 	}
 }
