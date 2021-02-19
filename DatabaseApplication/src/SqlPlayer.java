@@ -33,6 +33,22 @@ public class SqlPlayer {
 	public static String addEntry(String firstName, String lastName, String position, String jerseyNumber, String teamID) {
 		return "INSERT INTO Player "
 				+ "(FirstName, LastName, Position, JerseyNumber, TeamID)"
-				+ "VALUES ('" + firstName + "', '" + firstName + "', '" + firstName + "', " + jerseyNumber + ", " + teamID + " )";
+				+ "VALUES ('" + firstName + "', '" + lastName + "', '" + position + "', " + jerseyNumber + ", " + teamID + " )";
+	}
+	
+	public static String deleteEntry(String playerID)
+	{
+		return "DELETE FROM Player WHERE ID = " + playerID + "";
+	}
+	
+	public static String changeEntry(String playerID, String firstName, String lastName, String position, String jerseyNumber, String teamID)
+	{
+		return "UPDATE Player "
+			 + "SET FirstName = '"+ firstName +"', "
+			 + "LastName = '"+ lastName +"', "
+			 + "Position = '"+ position +"', "
+			 + "JerseyNumber = "+ jerseyNumber +", "
+			 + "TeamID = "+ teamID +" "
+			 + "WHERE ID = " + playerID + "";
 	}
 }

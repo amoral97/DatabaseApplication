@@ -56,7 +56,25 @@ public class TableController implements Initializable {
 	private TextArea addEntryJerseyNumber;
 	@FXML
 	private TextArea addEntryTeamID;
-
+	
+	@FXML
+	private Button entryDeleteButton;
+	@FXML
+	private TextArea entryRemoveIDText;
+	
+	@FXML
+	private Button confirmChangesButton;
+	@FXML
+	private TextArea changeEntryFirstName;
+	@FXML
+	private TextArea changeEntryLastName;
+	@FXML
+	private TextArea changeEntryPosition;
+	@FXML
+	private TextArea changeEntryJerseyNumber;
+	@FXML
+	private TextArea changeEntryTeamID;
+	
 	ObservableList<PlayerTable> list = FXCollections.observableArrayList();
 
 	/**
@@ -98,7 +116,6 @@ public class TableController implements Initializable {
 		table.setItems(list);
 	}
 	
-	//Creates entry on fxml table
 	public void entryCreate()
 	{
 		if(addEntryFirstName.getText() != "" && addEntryLastName.getText() != "" && addEntryPosition.getText() != "" && addEntryJerseyNumber.getText() != "" && addEntryTeamID.getText() != "")
@@ -126,5 +143,67 @@ public class TableController implements Initializable {
 			addEntryJerseyNumber.clear();
 			addEntryTeamID.clear();
 		}
+	}
+	
+	public void entryRemove()
+	{
+		if(entryRemoveIDText.getText() != null)
+		{
+			try (Connection connect = DBConnector.getConnection(); Statement statement = connect.createStatement()) {
+	
+				statement.execute(SqlPlayer.deleteEntry(entryRemoveIDText.getText()));
+				ResultSet rs = statement.executeQuery(SqlPlayer.allData());
+	
+				//clears list and reassigns the values to be displayed
+				list.clear();
+				while (rs.next()) {
+					list.add(new PlayerTable(rs.getString("ID"), rs.getString("FirstName"), rs.getString("LastName"),
+							rs.getString("Position"), rs.getString("JerseyNumber"), rs.getString("TeamID")));
+				}
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			entryRemoveIDText.clear();
+		}
+	}
+	
+	public void entryChangePopulate()
+	{
+		if(table.getSelectionModel().getSelectedItem() != null)
+		{
+			changeEntryFirstName.setText(table.getSelectionModel().getSelectedItem().getFirstName());
+			changeEntryLastName.setText(table.getSelectionModel().getSelectedItem().getLastName());
+			changeEntryPosition.setText(table.getSelectionModel().getSelectedItem().getPosition());
+			changeEntryJerseyNumber.setText(table.getSelectionModel().getSelectedItem().getJersey());
+			changeEntryTeamID.setText(table.getSelectionModel().getSelectedItem().getTeamID());
+		}
+	}
+	
+	public void entryChange()
+	{
+		if(table.getSelectionModel().getSelectedItem() != null)
+		{
+			
+			try (Connection connect = DBConnector.getConnection(); Statement statement = connect.createStatement()) {
+				
+				//Add new entry
+				statement.execute(SqlPlayer.changeEntry(table.getSelectionModel().getSelectedItem().getPlayerID(), changeEntryFirstName.getText(), changeEntryLastName.getText(),
+						changeEntryPosition.getText(), changeEntryJerseyNumber.getText(), changeEntryTeamID.getText()));
+				
+				ResultSet rs = statement.executeQuery(SqlPlayer.allData());
+	
+				//clears list and reassigns the values to be displayed
+				list.clear();
+				while (rs.next()) {
+					list.add(new PlayerTable(rs.getString("ID"), rs.getString("FirstName"), rs.getString("LastName"),
+							rs.getString("Position"), rs.getString("JerseyNumber"), rs.getString("TeamID")));
+				}
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
