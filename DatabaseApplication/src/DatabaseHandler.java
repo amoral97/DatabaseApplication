@@ -23,11 +23,6 @@ public class DatabaseHandler {
 
             return rs;
 
-            /*SELECT p.ID, p.FirstName, p.LastName, p.Position, p.JerseyNumber, p.TeamID, t.City " +
-                    "FROM Player p " +
-                    "LEFT JOIN Team t ON p.TeamID = t.ID " +
-                    "AND t.City = Miami ");*/
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,6 +71,69 @@ public class DatabaseHandler {
         }
 
         return null;
+    }
+
+
+    /**
+     * Takes in a Player ID and a Team ID and updates the team the player is associated.
+     * @param pId
+     * @param tId
+     * @throws SQLException
+     */
+    public static void updatePlayerTeam(int pId, int tId) throws SQLException {
+        Connection connect = DBConnector.getConnection();
+        try  {
+            Statement statement = connect.createStatement();
+            statement.executeUpdate("UPDATE Player "
+                    + "SET TeamID = "+tId+" "
+                    + "WHERE ID = "+pId+"");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Takes in Player information such as First Name, Last Name, Position, Jersey Number, and Team ID and inserts a single player.
+     * @param fName
+     * @param lName
+     * @param pos
+     * @param jNum
+     * @param tId
+     * @throws SQLException
+     */
+    public static void insertPlayer(String fName, String lName, String pos, int jNum, int tId) throws SQLException {
+        Connection connect = DBConnector.getConnection();
+        try  {
+            Statement statement = connect.createStatement();
+            statement.execute("INSERT INTO Player "
+                    + "(FirstName, LastName, Position, JerseyNumber, TeamID) "
+                    + "VALUES ('"+fName+"', '"+lName+"', '"+pos+"', "+jNum+", "+tId+")");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Takes in a Player ID and deletes the Player from the Database
+     * @param pId
+     * @throws SQLException
+     */
+    public static void deletePlayer(int pId) throws SQLException {
+        Connection connect = DBConnector.getConnection();
+        try  {
+            Statement statement = connect.createStatement();
+            statement.execute("DELETE FROM Player "
+                    + "WHERE ID = "+pId+"");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
