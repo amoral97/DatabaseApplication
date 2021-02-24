@@ -13,16 +13,20 @@ public class DatabaseHandler {
      * @return
      * @throws SQLException
      */
-    public static ResultSet playersFromCity() throws SQLException {
+    public static ResultSet playersFromCity(String city) throws SQLException {
         Connection connect = DBConnector.getConnection();
         try  {
             Statement statement = connect.createStatement();
             ResultSet rs = statement.executeQuery("SELECT p.ID, p.FirstName, p.LastName, p.Position, p.JerseyNumber, p.TeamID, t.City " +
                     "FROM Player p " +
-                    "LEFT JOIN Team t ON p.TeamID = t.ID " +
-                    "ORDER BY t.City ASC");
+                    "INNER JOIN Team t ON p.TeamID = t.ID AND t.City = '"+city+"'");
 
             return rs;
+
+            /*SELECT p.ID, p.FirstName, p.LastName, p.Position, p.JerseyNumber, p.TeamID, t.City " +
+                    "FROM Player p " +
+                    "LEFT JOIN Team t ON p.TeamID = t.ID " +
+                    "AND t.City = Miami ");*/
 
         } catch (SQLException e) {
             e.printStackTrace();
