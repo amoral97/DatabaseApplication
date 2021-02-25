@@ -63,7 +63,6 @@ public class DatabaseHandler {
                     "FROM Player p " +
                     "LEFT JOIN Team t ON p.TeamID = t.ID " +
                     "ORDER BY t.Name ASC");
-
             return rs;
 
         } catch (SQLException e) {

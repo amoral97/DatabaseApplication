@@ -8,11 +8,11 @@
  * back to a string value (I could be wrong though :) ).
  *
  */
-public class PlayerTable {
+public class QueriedTable {
 
-	String playerID, firstName, lastName, position, jersey, TeamID;
+	String  playerID, firstName, lastName, position, jersey, TeamID;
 
-	public PlayerTable(String playerID, String firstName, String lastName, String position, String jersey,
+	public QueriedTable(String uniqueColumn, String playerID, String firstName, String lastName, String position, String jersey,
 			String teamID) {
 		super();
 		this.playerID = playerID;
@@ -22,7 +22,7 @@ public class PlayerTable {
 		this.jersey = jersey;
 		TeamID = teamID;
 	}
-
+	
 	public String getPlayerID() {
 		return playerID;
 	}
@@ -70,7 +70,5 @@ public class PlayerTable {
 	public void setTeamID(String teamID) {
 		TeamID = teamID;
 	}
-	
-	
 	
 }

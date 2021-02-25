@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -20,15 +22,28 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TableController implements Initializable {
+public class PlayerTableController implements Initializable {
 	/**
 	 * Links the GUI elements to corresponding variables such as the Table element
 	 * and TableColumn elements. Plus, initiates an ObservableList for easier table
 	 * processing.
 	 */
+	@FXML
+	private VBox PlayerTableBox;
+	@FXML
+	private AnchorPane QueriesPane;
+	@FXML
+	private VBox cityFilterBox;
+	@FXML
+	private StackPane tableStackPane;
+	
+	//this is a really gross way to do it
 	@FXML
 	private TableView<PlayerTable> table;
 	@FXML
@@ -43,6 +58,60 @@ public class TableController implements Initializable {
 	private TableColumn<PlayerTable, String> col_jersey;
 	@FXML
 	private TableColumn<PlayerTable, String> col_teamID;
+	
+	@FXML
+	private TableView<TeamSortTable> teamSortTable;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_playerIDTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_firstNameTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_lastNameTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_positionTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_jerseyTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_teamIDTeam;
+	
+	@FXML
+	private TableView<JerseySortTable> jerseySortTable;
+	@FXML
+	private TableColumn<JerseySortTable, String> col_playerIDJersey;
+	@FXML
+	private TableColumn<JerseySortTable, String> col_firstNameJersey;
+	@FXML
+	private TableColumn<JerseySortTable, String> col_lastNameJersey;
+	@FXML
+	private TableColumn<JerseySortTable, String> col_positionJersey;
+	@FXML
+	private TableColumn<JerseySortTable, String> col_jerseyJersey;
+	@FXML
+	private TableColumn<JerseySortTable, String> col_teamIDJersey;
+	
+	@FXML
+	private TableView<CityFilterTable> cityFilterTable;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_playerIDCity;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_firstNameCity;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_lastNameCity;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_positionCity;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_jerseyCity;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_teamIDCity;
+	
+	@FXML
+	private Button playerButton;
+	@FXML
+	private Button teamButton;
+	@FXML
+	private Button jerseyButton;
+	@FXML
+	private Button cityButton;
 	
 	@FXML
 	private Button entryCreateButton;
@@ -100,8 +169,45 @@ public class TableController implements Initializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		setTableData();
+		
+		PlayerTableBox.toFront();
+		cityFilterBox.toBack();
+		teamSortTable.toBack();
+		jerseySortTable.toBack();
+	}
+	
+	//Table Selections
+	public void playerTableView()
+	{
+		PlayerTableBox.toFront();
+		cityFilterBox.toBack();
+		teamSortTable.toBack();
+		jerseySortTable.toBack();
+	}
+	
+	public void teamTableView()
+	{
+		PlayerTableBox.toBack();
+		cityFilterBox.toBack();
+		teamSortTable.toFront();
+		jerseySortTable.toBack();
+	}
+
+	public void jerseyTableView()
+	{
+		PlayerTableBox.toBack();
+		cityFilterBox.toBack();
+		teamSortTable.toBack();
+		jerseySortTable.toFront();
+	}
+	
+	public void cityTableView()
+	{
+		PlayerTableBox.toBack();
+		cityFilterBox.toFront();
+		teamSortTable.toBack();
+		jerseySortTable.toBack();
 	}
 	
 	public void setTableData()
@@ -204,6 +310,5 @@ public class TableController implements Initializable {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }
