@@ -1,15 +1,18 @@
 
 public class TeamSortTable {
-	String playerID, firstName, lastName, position, jersey, TeamID;
+	String playerID, firstName, lastName, position, jersey, TeamID, city, teamName, mascot;
 
 	public TeamSortTable(String playerID, String firstName, String lastName, String position, String jersey,
-			String teamID) {
+			String teamID, String city, String teamName, String mascot) {
 		super();
 		this.playerID = playerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.position = position;
 		this.jersey = jersey;
+		this.city = city;
+		this.teamName = teamName;
+		this.mascot = mascot;
 		TeamID = teamID;
 	}
 
@@ -59,6 +62,30 @@ public class TeamSortTable {
 
 	public void setTeamID(String teamID) {
 		TeamID = teamID;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
+	public String getMascot() {
+		return mascot;
+	}
+
+	public void setMascot(String mascot) {
+		this.mascot = mascot;
 	}
 	
 	

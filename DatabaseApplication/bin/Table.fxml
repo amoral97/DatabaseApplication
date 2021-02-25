@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerTableController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TableController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="939.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -51,7 +51,7 @@
                                  <children>
                                     <VBox fx:id="PlayerTableBox" prefHeight="400.0" prefWidth="865.0">
                                        <children>
-                                          <TableView fx:id="table" onMouseClicked="#entryChangePopulate" prefHeight="202.0" prefWidth="873.0">
+                                          <TableView fx:id="table" onMouseClicked="#entryTextPopulate" prefHeight="202.0" prefWidth="873.0">
                                             <columns>
                                               <TableColumn fx:id="col_playerID" prefWidth="75.0" text="ID" />
                                               <TableColumn fx:id="col_firstName" prefWidth="112.0" text="First Name" />
@@ -113,7 +113,7 @@
                                           </TabPane>
                                        </children>
                                     </VBox>
-                                    <TableView fx:id="teamSortTable" onMouseClicked="#entryChangePopulate" prefHeight="400.0" prefWidth="865.0">
+                                    <TableView fx:id="teamSortTable" prefHeight="400.0" prefWidth="865.0">
                                        <columns>
                                           <TableColumn fx:id="col_playerIDTeam" prefWidth="75.0" text="ID" />
                                           <TableColumn fx:id="col_firstNameTeam" prefWidth="112.0" text="First Name" />
@@ -121,9 +121,12 @@
                                           <TableColumn fx:id="col_positionTeam" prefWidth="151.0" text="Position" />
                                           <TableColumn fx:id="col_jerseyTeam" prefWidth="97.0" text="Jersey Number" />
                                           <TableColumn fx:id="col_teamIDTeam" prefWidth="78.0" text="Team ID" />
+                                          <TableColumn fx:id="col_cityTeam" prefWidth="78.0" text="City" />
+                                          <TableColumn fx:id="col_teamNameTeam" prefWidth="78.0" text="TeamName" />
+                                          <TableColumn fx:id="col_mascotTeam" prefWidth="78.0" text="Mascot" />
                                        </columns>
                                     </TableView>
-                                    <TableView fx:id="jerseySortTable" onMouseClicked="#entryChangePopulate" prefHeight="400.0" prefWidth="865.0">
+                                    <TableView fx:id="jerseySortTable" prefHeight="400.0" prefWidth="865.0">
                                        <columns>
                                           <TableColumn fx:id="col_playerIDJersey" prefWidth="75.0" text="ID" />
                                           <TableColumn fx:id="col_firstNameJersey" prefWidth="112.0" text="First Name" />
@@ -135,7 +138,7 @@
                                     </TableView>
                                     <VBox fx:id="cityFilterBox" prefHeight="400.0" prefWidth="728.0">
                                        <children>
-                                          <TableView fx:id="cityFilterTable" onMouseClicked="#entryChangePopulate" prefHeight="300.0" prefWidth="908.0">
+                                          <TableView fx:id="cityFilterTable" prefHeight="300.0" prefWidth="908.0">
                                              <columns>
                                                 <TableColumn fx:id="col_playerIDCity" prefWidth="75.0" text="ID" />
                                                 <TableColumn fx:id="col_firstNameCity" prefWidth="112.0" text="First Name" />
@@ -143,6 +146,7 @@
                                                 <TableColumn fx:id="col_positionCity" prefWidth="151.0" text="Position" />
                                                 <TableColumn fx:id="col_jerseyCity" prefWidth="97.0" text="Jersey Number" />
                                                 <TableColumn fx:id="col_teamIDCity" prefWidth="78.0" text="Team ID" />
+                                                <TableColumn fx:id="col_cityCity" prefWidth="78.0" text="City" />
                                              </columns>
                                           </TableView>
                                           <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: WHITE;">

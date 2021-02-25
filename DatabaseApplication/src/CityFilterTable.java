@@ -1,15 +1,16 @@
 
 public class CityFilterTable {
-	String playerID, firstName, lastName, position, jersey, TeamID;
+	String playerID, firstName, lastName, position, jersey, TeamID, city;
 
 	public CityFilterTable(String playerID, String firstName, String lastName, String position, String jersey,
-			String teamID) {
+			String teamID, String city) {
 		super();
 		this.playerID = playerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.position = position;
 		this.jersey = jersey;
+		this.city = city;
 		TeamID = teamID;
 	}
 

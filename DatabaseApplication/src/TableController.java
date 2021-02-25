@@ -28,7 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PlayerTableController implements Initializable {
+public class TableController implements Initializable {
 	/**
 	 * Links the GUI elements to corresponding variables such as the Table element
 	 * and TableColumn elements. Plus, initiates an ObservableList for easier table
@@ -73,6 +73,12 @@ public class PlayerTableController implements Initializable {
 	private TableColumn<TeamSortTable, String> col_jerseyTeam;
 	@FXML
 	private TableColumn<TeamSortTable, String> col_teamIDTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_cityTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_teamNameTeam;
+	@FXML
+	private TableColumn<TeamSortTable, String> col_mascotTeam;
 	
 	@FXML
 	private TableView<JerseySortTable> jerseySortTable;
@@ -103,6 +109,8 @@ public class PlayerTableController implements Initializable {
 	private TableColumn<CityFilterTable, String> col_jerseyCity;
 	@FXML
 	private TableColumn<CityFilterTable, String> col_teamIDCity;
+	@FXML
+	private TableColumn<CityFilterTable, String> col_cityCity;
 	
 	@FXML
 	private Button playerButton;
@@ -274,7 +282,7 @@ public class PlayerTableController implements Initializable {
 		}
 	}
 	
-	public void entryChangePopulate()
+	public void entryTextPopulate()
 	{
 		if(table.getSelectionModel().getSelectedItem() != null)
 		{
@@ -283,6 +291,7 @@ public class PlayerTableController implements Initializable {
 			changeEntryPosition.setText(table.getSelectionModel().getSelectedItem().getPosition());
 			changeEntryJerseyNumber.setText(table.getSelectionModel().getSelectedItem().getJersey());
 			changeEntryTeamID.setText(table.getSelectionModel().getSelectedItem().getTeamID());
+			entryRemoveIDText.setText(table.getSelectionModel().getSelectedItem().getPlayerID());
 		}
 	}
 	
