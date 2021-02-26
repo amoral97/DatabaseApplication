@@ -101,7 +101,7 @@ public class TableController implements Initializable {
 	ObservableList<PlayerTable> playerList = FXCollections.observableArrayList();
 	ObservableList<JerseySortTable> jerseyList = FXCollections.observableArrayList();
 	ObservableList<TeamSortTable> teamList = FXCollections.observableArrayList();
-	ObservableList<TeamSortTable> cityList = FXCollections.observableArrayList();
+	ObservableList<CityFilterTable> cityList = FXCollections.observableArrayList();
 
 	/**
 	 * Allows the controller to retrieve database information and adds them to their
@@ -122,27 +122,35 @@ public class TableController implements Initializable {
 			ResultSet citySet = DatabaseHandler.playersFromCity("Boston");
 
 			while (rs.next()) {
-				playerList.add(new PlayerTable(rs.getString("ID"), rs.getString("FirstName"), rs.getString("LastName"),
-						rs.getString("Position"), rs.getString("JerseyNumber"), rs.getString("TeamID")));
+				playerList.add(
+						new PlayerTable(rs.getString("ID"), rs.getString("FirstName"), rs.getString("LastName"),
+						rs.getString("Position"), rs.getString("JerseyNumber"), rs.getString("TeamID")
+						));
 			}
 
 			while (jerseySet.next()) {
-				jerseyList.add(new JerseySortTable(jerseySet.getString("ID"), jerseySet.getString("FirstName"),
+				jerseyList.add(
+						new JerseySortTable(jerseySet.getString("ID"), jerseySet.getString("FirstName"),
 						jerseySet.getString("LastName"), jerseySet.getString("Position"),
-						jerseySet.getString("JerseyNumber"), jerseySet.getString("TeamID")));
+						jerseySet.getString("JerseyNumber"), jerseySet.getString("TeamID")
+						));
 			}
 
 			while (teamSet.next()) {
-				teamList.add(new TeamSortTable(teamSet.getString("ID"), teamSet.getString("FirstName"),
+				teamList.add(
+						new TeamSortTable(teamSet.getString("ID"), teamSet.getString("FirstName"),
 						teamSet.getString("LastName"), teamSet.getString("Position"), teamSet.getString("JerseyNumber"),
 						teamSet.getString("TeamID"), teamSet.getString("City"), teamSet.getString("Name"),
-						teamSet.getString("Mascot")));
+						teamSet.getString("Mascot")
+						));
 			}
 
-//			  while (citySet.next()) {
-//			  				cityList.add(new CityFilterTable(citySet.getString("ID"), citySet.getString("FirstName"), citySet.getString("LastName"), citySet.getString("Position"),
-//					citySet.getString("JerseyNumber"), citySet.getString("TeamID"), citySet.getString("City")));
-//			  }
+			while (citySet.next()) {
+				cityList.add(
+			  			new CityFilterTable(citySet.getString("ID"), citySet.getString("FirstName"), citySet.getString("LastName"), citySet.getString("Position"),
+			  			citySet.getString("JerseyNumber"), citySet.getString("TeamID"), citySet.getString("City")
+			  			));
+			  }
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -151,6 +159,7 @@ public class TableController implements Initializable {
 		setPlayerTableData();
 		setJerseyTableData();
 		setTeamTableData();
+		setCityTableData();
 
 		PlayerTableBox.toFront();
 		cityFilterBox.toBack();
@@ -187,6 +196,7 @@ public class TableController implements Initializable {
 		jerseySortTable.toBack();
 	}
 
+	// Set String values from ObservableList to TableView columns
 	public void setPlayerTableData() {
 		col_playerID.setCellValueFactory(new PropertyValueFactory<>("playerID"));
 		col_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -221,6 +231,18 @@ public class TableController implements Initializable {
 		col_mascotTeam.setCellValueFactory(new PropertyValueFactory<>("mascot"));
 
 		teamSortTable.setItems(teamList);
+	}
+	
+	public void setCityTableData() {
+		col_playerIDCity.setCellValueFactory(new PropertyValueFactory<>("playerID"));
+		col_firstNameCity.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		col_lastNameCity.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		col_positionCity.setCellValueFactory(new PropertyValueFactory<>("position"));
+		col_jerseyCity.setCellValueFactory(new PropertyValueFactory<>("jersey"));
+		col_teamIDCity.setCellValueFactory(new PropertyValueFactory<>("teamID"));
+		col_cityCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+
+		cityFilterTable.setItems(cityList);
 	}
 
 	public void entryCreate() {
