@@ -61,4 +61,12 @@ public class CityFilterTable {
 	public void setTeamID(String teamID) {
 		TeamID = teamID;
 	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
 }
