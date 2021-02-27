@@ -1,32 +1,24 @@
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class TableController implements Initializable {
 	/**
@@ -38,6 +30,7 @@ public class TableController implements Initializable {
 	@FXML private AnchorPane QueriesPane;
 	@FXML private VBox cityFilterBox;
 	@FXML private StackPane tableStackPane;
+	@FXML private TextArea cityFilterTextArea;
 
 	// this is a really gross way to do it
 	@FXML private TableView<PlayerTable> table;
@@ -119,7 +112,7 @@ public class TableController implements Initializable {
 			ResultSet rs = statement.executeQuery(SqlPlayer.allData());
 			ResultSet jerseySet = DatabaseHandler.playerJerseyOrder();
 			ResultSet teamSet = DatabaseHandler.playersTeam();
-			ResultSet citySet = DatabaseHandler.playersFromCity("Boston");
+			ResultSet citySet = DatabaseHandler.playersFromCity();
 
 			while (rs.next()) {
 				playerList.add(
@@ -144,13 +137,15 @@ public class TableController implements Initializable {
 						teamSet.getString("Mascot")
 						));
 			}
-
+			
 			while (citySet.next()) {
 				cityList.add(
-			  			new CityFilterTable(citySet.getString("ID"), citySet.getString("FirstName"), citySet.getString("LastName"), citySet.getString("Position"),
-			  			citySet.getString("JerseyNumber"), citySet.getString("TeamID"), citySet.getString("City")
-			  			));
-			  }
+						new CityFilterTable(citySet.getString("ID"), citySet.getString("FirstName"), citySet.getString("LastName"), citySet.getString("Position"), 
+						citySet.getString("JerseyNumber"), citySet.getString("TeamID"), citySet.getString("City"))
+						);
+			}
+
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,6 +155,7 @@ public class TableController implements Initializable {
 		setJerseyTableData();
 		setTeamTableData();
 		setCityTableData();
+		filterData();
 
 		PlayerTableBox.toFront();
 		cityFilterBox.toBack();
@@ -244,7 +240,29 @@ public class TableController implements Initializable {
 
 		cityFilterTable.setItems(cityList);
 	}
+	
+    // Adds filtering functionality to the CityFilterTable with the TextArea <code>cityFIlterTextArea</code>
+	public void filterData() {
+		FilteredList<CityFilterTable> fList = new FilteredList<>(cityList, b -> true);
 
+		// Key listener to handle what happens to the list whenever the filter changes
+		cityFilterTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+			fList.setPredicate(cityFilterTable -> {
+				String lcFilter = newValue.toLowerCase();
+				
+				// @Returns true when filter equals the city
+				if (cityFilterTable.getCity().toLowerCase().indexOf(lcFilter) != -1) {
+					return true;
+				} else
+					return false;
+			});
+		});
+		
+		SortedList<CityFilterTable> sList = new SortedList<>(fList);
+		
+		sList.comparatorProperty().bind(cityFilterTable.comparatorProperty());
+		cityFilterTable.setItems(sList);
+	}
 	public void entryCreate() {
 		if (addEntryFirstName.getText() != "" && addEntryLastName.getText() != "" && addEntryPosition.getText() != ""
 				&& addEntryJerseyNumber.getText() != "" && addEntryTeamID.getText() != "") {

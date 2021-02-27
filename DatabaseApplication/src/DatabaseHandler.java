@@ -13,13 +13,13 @@ public class DatabaseHandler {
      * @return
      * @throws SQLException
      */
-    public static ResultSet playersFromCity(String city) throws SQLException {
+    public static ResultSet playersFromCity() throws SQLException {
         Connection connect = DBConnector.getConnection();
         try  {
             Statement statement = connect.createStatement();
             ResultSet rs = statement.executeQuery("SELECT p.ID, p.FirstName, p.LastName, p.Position, p.JerseyNumber, p.TeamID, t.City " +
                     "FROM Player p " +
-                    "INNER JOIN Team t ON p.TeamID = t.ID AND t.City = '"+city+"'");
+                    "INNER JOIN Team t ON p.TeamID = t.ID");
 
             return rs;
 
