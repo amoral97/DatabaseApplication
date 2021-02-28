@@ -1,5 +1,6 @@
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -106,9 +107,18 @@ public class TableController implements Initializable {
 
 		try (Connection connect = DBConnector.getConnection(); Statement statement = connect.createStatement()) {
 
-			statement.execute(SqlPlayer.dropTable());
-			statement.execute(SqlPlayer.createTable());
-			statement.execute(SqlPlayer.insertData());
+			
+			/*
+			 * statement.execute(SqlPlayer.dropTable());
+			 * statement.execute(SqlPlayer.createTable());
+			 * statement.execute(SqlPlayer.insertData());
+			 * 
+			 * statement.execute(SqlTeam.dropTable());
+			 * statement.execute(SqlTeam.createTable());
+			 * statement.execute(SqlTeam.insertData());
+			 */
+			 
+			
 			ResultSet rs = statement.executeQuery(SqlPlayer.allData());
 			ResultSet jerseySet = DatabaseHandler.playerJerseyOrder();
 			ResultSet teamSet = DatabaseHandler.playersTeam();
@@ -263,14 +273,16 @@ public class TableController implements Initializable {
 		sList.comparatorProperty().bind(cityFilterTable.comparatorProperty());
 		cityFilterTable.setItems(sList);
 	}
+
 	public void entryCreate() {
 		if (addEntryFirstName.getText() != "" && addEntryLastName.getText() != "" && addEntryPosition.getText() != ""
 				&& addEntryJerseyNumber.getText() != "" && addEntryTeamID.getText() != "") {
 			// Adds entry to database
 			try (Connection connect = DBConnector.getConnection(); Statement statement = connect.createStatement()) {
 
-				statement.execute(SqlPlayer.addEntry(addEntryFirstName.getText(), addEntryLastName.getText(),
+				statement.executeUpdate(SqlPlayer.addEntry(addEntryFirstName.getText(), addEntryLastName.getText(),
 						addEntryPosition.getText(), addEntryJerseyNumber.getText(), addEntryTeamID.getText()));
+
 				ResultSet rs = statement.executeQuery(SqlPlayer.allData());
 
 				// clears list and reassigns the values to be displayed
@@ -281,6 +293,7 @@ public class TableController implements Initializable {
 									rs.getString("Position"), rs.getString("JerseyNumber"), rs.getString("TeamID")));
 				}
 
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

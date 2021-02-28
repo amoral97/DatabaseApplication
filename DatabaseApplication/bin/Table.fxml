@@ -61,7 +61,7 @@
                                                 <TableColumn fx:id="col_teamID" prefWidth="78.0" text="Team ID" />
                                             </columns>
                                           </TableView>
-                                          <TabPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
+                                          <TabPane prefHeight="200.0" prefWidth="865.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
                                             <tabs>
                                               <Tab text="Add Entry">
                                                 <content>
@@ -149,7 +149,7 @@
                                                 <TableColumn fx:id="col_cityCity" prefWidth="78.0" text="City" />
                                              </columns>
                                           </TableView>
-                                          <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: WHITE;">
+                                          <Pane prefHeight="100.0" prefWidth="865.0" style="-fx-background-color: WHITE;">
                                              <children>
                                                 <TextArea fx:id="cityFilterTextArea" layoutX="333.0" layoutY="31.0" prefHeight="22.0" prefWidth="200.0" promptText="City to Filter" />
                                              </children>

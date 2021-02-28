@@ -21,7 +21,9 @@ public class SqlTeam {
 			+ "(Name, City, Mascot)"
 			+ "VALUES ('Nets', 'Brooklyn', 'Duncan'),"
 			+ "('Heat', 'Miami', 'Burnie'),"
-			+ "('Celtics', 'Boston', 'Lucky')";
+			+ "('Lakers', 'Los Angeles', 'None'),"
+			+ "('Celtics', 'Boston', 'Lucky'),"
+			+ "('Jazz', 'Utah', 'Bear')";
 	}
 	
 	public static String allData() {

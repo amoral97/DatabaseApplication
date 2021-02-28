@@ -1,6 +1,6 @@
 
 public class TeamSortTable {
-	String playerID, firstName, lastName, position, jersey, TeamID, city, teamName, mascot;
+	String playerID, firstName, lastName, position, jersey, teamID, city, teamName, mascot;
 
 	public TeamSortTable(String playerID, String firstName, String lastName, String position, String jersey,
 			String teamID, String city, String teamName, String mascot) {
@@ -13,7 +13,7 @@ public class TeamSortTable {
 		this.city = city;
 		this.teamName = teamName;
 		this.mascot = mascot;
-		TeamID = teamID;
+		this.teamID = teamID;
 	}
 
 	public String getPlayerID() {
@@ -57,11 +57,11 @@ public class TeamSortTable {
 	}
 
 	public String getTeamID() {
-		return TeamID;
+		return teamID;
 	}
 
 	public void setTeamID(String teamID) {
-		TeamID = teamID;
+		this.teamID = teamID;
 	}
 
 	public String getCity() {
